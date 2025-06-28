@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import nitroPublic from "nitro-public-module";
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
@@ -15,7 +17,15 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt',
     'nuxt-auth-utils',
+    'v-gsap-nuxt',
   ],
+
+
+
+  nitro: {
+    modules: [nitroPublic()],
+    static: true
+  },
 
   supabase: {
     redirect: false,
@@ -30,7 +40,7 @@ export default defineNuxtConfig({
   }
   },
   srcDir: 'src',
-  css: ['~/css/prism.css'],
+  css: ['~/assets/css/main.css'],
   runtimeConfig: {
     // API: '',
     public: {
@@ -49,7 +59,7 @@ export default defineNuxtConfig({
   },
 
   imports: {
-    dirs: ["store", "composables", "constants"],
+    dirs: ["store", "composables", "constants", "components"],
   },
 
 
