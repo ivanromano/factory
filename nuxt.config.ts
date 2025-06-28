@@ -62,5 +62,9 @@ export default defineNuxtConfig({
     dirs: ["store", "composables", "constants", "components"],
   },
 
-
+    routeRules: {
+      '/login': { ssr: false },
+      '/register': { ssr: false },
+      '/admin/**': { ssr: false },
+    }
 })

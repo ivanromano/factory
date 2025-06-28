@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormError, FormSubmitEvent } from '@nuxt/ui'
+import type { FormError, FormErrorEvent, FormSubmitEvent } from '@nuxt/ui'
 
 const state = reactive({
   email: undefined,
@@ -42,19 +42,46 @@ const client = useSupabaseClient()
 
 const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<typeof state>) {
-  toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
 
-
-  const { data, error } = await client.auth.signUp({
+  try {
+    const { data, error } = await client.auth.signUp({
     email: event.data.email!,
-    password: event.data.password!
+    password: event.data.password!,
+  options: {
+    data: {
+      first_name: 'cd',
+      age: 27,
+      phone: null,
+      is_admin: false,
+      is_editor: false
+    },
+  },
   })
+    if (error) {
+      toast.add({ title: 'Error', description: error.message, color: 'error' })
+      return
+    }
+
+  } catch (errors) {
+    toast.add({ title: 'Error', description: 'Please fix the errors in the form.', color: 'error' })
+    return
+  }
+
+  toast.add({ title: 'Success', description: 'The form has been submitted.', color: 'success' })
   console.log(event.data)
+}
+
+async function onError(event: FormErrorEvent) {
+  if (event?.errors?.[0]?.id) {
+    const element = document.getElementById(event.errors[0].id)
+    element?.focus()
+    element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
 }
 </script>
 
 <template>
-  <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
+  <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit" @error="onError">
     <UFormField label="Email" name="email">
       <UInput v-model="state.email" />
     </UFormField>

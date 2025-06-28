@@ -1,13 +1,19 @@
 <template>
-    <CustomCursor />
-      
-    <!-- <Sidebar /> -->
+  <ToastProvider>
+  <CustomCursor />
+
+  <!-- <Sidebar /> -->
     <div class="flex-1">
-      <slot />
+      <UApp>
+        <slot />
+      </UApp>
+
     </div>
+  </ToastProvider>
 </template>
 
 <script lang="ts" setup>
+import { ToastProvider } from 'reka-ui'
 
 
 useHead({
