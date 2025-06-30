@@ -1,9 +1,9 @@
 <template>
   <ToastProvider>
-  <CustomCursor />
+  <!-- <CustomCursor /> -->
 
   <!-- <Sidebar /> -->
-    <div class="flex-1">
+    <div class="">
       <UApp>
         <slot />
       </UApp>
@@ -23,7 +23,7 @@ useHead({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description' }
     ],
-    link: [{ rel: 'icon', type: 'image/png', href: '../assets/icon.png' },
+    link: [{ rel: 'icon', type: 'image/png', href: 'https://i.imgur.com/mgUFI05.png' },
       
     ],
     script: [

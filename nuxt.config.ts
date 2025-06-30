@@ -3,7 +3,7 @@ import nitroPublic from "nitro-public-module";
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   modules: [
     '@nuxt/content',
@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxt/ui',
     '@pinia/nuxt',
-    'nuxt-auth-utils',
+    // 'nuxt-auth-utils',
     'v-gsap-nuxt',
   ],
 
@@ -46,7 +46,6 @@ export default defineNuxtConfig({
     public: {
       SUPABASE_KEY: process.env.SUPABASE_KEY,
       SUPABASE_URL: process.env.SUPABASE_URL,
-      API:  process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
       // API: 'http://localhost:8000/', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
       // API: 'https://victishipsis.onrender.com/', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
     },
@@ -62,9 +61,18 @@ export default defineNuxtConfig({
     dirs: ["store", "composables", "constants", "components"],
   },
 
-    routeRules: {
-      '/login': { ssr: false },
-      '/register': { ssr: false },
-      '/admin/**': { ssr: false },
-    }
+  routeRules: {
+    '/login': { ssr: false },
+    '/register': { ssr: false },
+    '/admin/**': { ssr: false },
+  },
+
+  vite: {
+    esbuild: {
+      drop: ['debugger'],
+      pure: ['console.log', 'console.error', 'console.warn', 'console.debug', 'console.trace'],
+    },
+  },
+  vgsap: { extraPlugins: ['ScrollTrigger'], clubPlugins: [], autoprefixer: true }
+
 })

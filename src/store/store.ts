@@ -1,14 +1,10 @@
 import { defineStore } from 'pinia';
 // import { fetch } from '@vueuse/core'
 
-export const useStore = defineStore('store', {
+const useStore = defineStore('store', {
   state: () => ({
-    // name: '',
-    // email: '',
-    // password: '',
-    // repassword: '',
-
-
+    users: [] as SupabaseUser[], // Array to store users fetched from Supabase
+    user: null as SupabaseUser | null, // Current user from Supabase
   }),
   actions: {
 
@@ -17,3 +13,5 @@ export const useStore = defineStore('store', {
 
   }
 } );
+
+export default useStore

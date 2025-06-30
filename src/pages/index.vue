@@ -21,108 +21,104 @@
       </button>
     </div>
   </div>
+  <main class="min-h-[calc(100vh-14rem)] flex flex-col md:flex-row items-center justify-center px-4 pt-5 gap-y-10 md:gap-x-10 text-center">
+    <IndexLoginRegisterButtons v-if="!user" />
 
-  <div class="min-h-[calc(100vh-14rem)] flex items-center justify-center px-4 pt-5">
-    <div class="text-center space-y-6 max-w-xl animate-fade-in-up">
-      <h1 class="text-4xl font-bold text-primary-700 dark:text-primary-300 tracking-tight">
-        ¿Aún no nos conocemos?
-      </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-300">
-        Iniciá sesión para descubrir todo lo que tenemos preparado para vos.
+    <div v-else class="flex flex-col items-center gap-4">
+      <h2 class="text-2xl font-bold text-gray-800 ">
+        Bienvenido, {{ user.first_name || 'Usuario' }}
+      </h2>
+      <p class="text-gray-600 dark:text-gray-600">
+        Es un gusto volver a verte
       </p>
-      <UButton
-        color="primary"
-        variant="solid"
-        size="lg"
-        class="transition-all duration-300 hover:scale-105"
-        icon="i-heroicons-arrow-right-on-rectangle"
-      >
-        Iniciar Sesión
-      </UButton>
     </div>
-  </div>
-      <Services :services="services" />
+
+  </main>
+  
+
+  <HeroGsap />
+
+  <!-- <Services :services="services" /> -->
 
   <CardsCards :services-with-stats="servicesWithStats" />
 </template>
 
 <script lang="ts" setup>
 import CardsCards from "../components/cards/cards.vue";
+const supabase = useSupabaseClient()
 
-const items = [
-  'https://picsum.photos/640/640?random=1',
-  'https://picsum.photos/640/640?random=2',
-  'https://picsum.photos/640/640?random=3',
-  'https://picsum.photos/640/640?random=4',
-  'https://picsum.photos/640/640?random=5',
-  'https://picsum.photos/640/640?random=6'
-]
+const user = ref<User | null>(getUser())
+updateUser(user.value!.id, { ...user.value!, first_name: 'Nuevo Nombre', is_admin: true })
+
+
+
+
 
 const servicesWithStats = ref<Service[]>([
   {
-    title: 'Marketing Digital',
-    description: 'Estrategias personalizadas para aumentar tu presencia online',
+    title: 'Enlaces UTM',
+    description: 'Que crearemos para medir el rendimiento de tus campañas',
     icon: 'i-heroicons-megaphone',
     color: 'primary',
-    price: '$499',
+    price: '$20',
     stats: {
-      stat1: { label: 'Incremento conversiones', value: 75 },
-      stat2: { label: 'Reducción coste/lead', value: 40 }
+      stat1: { label: 'Incremento de visitas', value: 75 },
+      stat2: { label: 'Visitas de confianza', value: 40 }
     }
   },
   {
-    title: 'Desarrollo Web',
-    description: 'Sitios web a medida con tecnología moderna',
+    title: 'Componentes UI',
+    description: 'Para una mejor experiencia de usuario',
     icon: 'i-heroicons-code-bracket',
     color: 'secondary',
-    price: '$899',
+    price: '$45',
     stats: {
-      stat1: { label: 'Velocidad de carga', value: 220 },
+      stat1: { label: 'Experiencia de usuario', value: 220 },
       stat2: { label: 'Tiempo en página', value: 65 }
     }
   },
   {
-    title: 'SEO Avanzado',
-    description: 'Posicionamiento en buscadores orgánico',
+    title: 'Paginas SSR',
+    description: 'Para mejorar el SEO y la velocidad de carga',
     icon: 'i-heroicons-magnifying-glass',
     color: 'error',
     price: '$699',
     stats: {
       stat1: { label: 'Tráfico orgánico', value: 180 },
-      stat2: { label: 'Keywords top 3', value: 120 }
+      stat2: { label: 'Velocidad de carga', value: 120 }
     }
   },
   {
-    title: 'Redes Sociales',
-    description: 'Gestión profesional de perfiles sociales',
+    title: 'Gestion de Usuarios',
+    description: 'Que implementaremos para tu sitio',
     icon: 'i-heroicons-chat-bubble-left-right',
     color: 'info',
-    price: '$399',
+    price: '$32',
     stats: {
-      stat1: { label: 'Crecimiento seguidores', value: 250 },
-      stat2: { label: 'Incremento engagement', value: 175 }
+      stat1: { label: 'Crecimiento de seguidores', value: 250 },
+      stat2: { label: 'Interacciones', value: 300 }
     }
   },
   {
     title: 'E-commerce',
-    description: 'Tiendas online que maximizan ventas',
+    description: 'Agregaremos un backend para tu tienda',
     icon: 'i-heroicons-shopping-cart',
     color: 'warning',
-    price: '$1299',
+    price: '$400',
     stats: {
-      stat1: { label: 'Aumento ventas', value: 150 },
-      stat2: { label: 'Tasa conversión', value: 90 }
+      stat1: { label: 'Aumento en ventas', value: 150 },
+      stat2: { label: 'Tiempo en página', value: 90 }
     }
   },
   {
-    title: 'Email Marketing',
-    description: 'Campañas automatizadas de alto impacto',
+    title: 'Panel de Administración',
+    description: 'Para gestionar tu sitio sin nuestra ayuda',
     icon: 'i-heroicons-envelope',
     color: 'neutral',
     price: '$299',
     stats: {
-      stat1: { label: 'Tasa de apertura', value: 45 },
-      stat2: { label: 'CTR mejorado', value: 210 }
+      stat1: { label: 'Productividad', value: 45 },
+      stat2: { label: 'Seguridad', value: 210 }
     }
   }
 ])
