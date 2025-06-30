@@ -1,4 +1,4 @@
-export default async function useUpdateUser(id: string, newUserData: Partial<User>) {
+export default async function useUpdateUser(id: string, newUserData:User) {
   if (!id) throw new Error('ID is required')
 
   const res = await $fetch(`/api/users/${id}`, {
@@ -13,6 +13,6 @@ export default async function useUpdateUser(id: string, newUserData: Partial<Use
       }
     }
   })
-  // console.log('User updated:', res);
+
   
 }

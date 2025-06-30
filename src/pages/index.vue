@@ -48,7 +48,6 @@ import CardsCards from "../components/cards/cards.vue";
 const supabase = useSupabaseClient()
 
 const user = ref<User | null>(getUser())
-updateUser(user.value!.id, { ...user.value!, first_name: 'Nuevo Nombre', is_admin: true })
 
 
 
@@ -56,8 +55,8 @@ updateUser(user.value!.id, { ...user.value!, first_name: 'Nuevo Nombre', is_admi
 
 const servicesWithStats = ref<Service[]>([
   {
-    title: 'Enlaces UTM',
-    description: 'Que crearemos para medir el rendimiento de tus campañas',
+    title: 'Correccion de Errores',
+    description: 'Para que tu sitio funcione sin problemas',
     icon: 'i-heroicons-megaphone',
     color: 'primary',
     price: '$20',
