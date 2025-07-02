@@ -4,6 +4,9 @@ import { ref, onMounted } from 'vue'
 const users = ref<SupabaseUser[]>(await getUsers())
 const userCount = ref<number>(0)
 const recentUsers = ref<SupabaseUser[]>([])
+const adminUsers = ref<SupabaseUser[]>([])
+const editorUsers = ref<SupabaseUser[]>([])
+const emailVerifiedUsers = ref<SupabaseUser[]>([])
 
 onMounted(async () => {
   userCount.value = 128
@@ -11,18 +14,19 @@ onMounted(async () => {
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 5)
 })
+  adminUsers.value = users.value.filter(user => user.user_metadata.is_admin)
+  editorUsers.value = users.value.filter(user => user.user_metadata.is_editor)
+  emailVerifiedUsers.value = users.value.filter(user => user.user_metadata.email_verified)
 </script>
 
 <template>
-  {{ users }}
     <div class="container mx-auto p-6 space-y-8">
       <header class="flex flex-col gap-2">
         <h1 class="text-3xl font-bold">Panel de Administración</h1>
         <p class="text-gray-700 max-w-2xl">
-          Bienvenido al centro de control de tu plataforma. Desde aquí podrás obtener una vista general del sistema,
-          visualizar métricas clave, verificar el estado de la actividad reciente y prepararte para acceder a otras secciones administrativas.
-          Este panel fue diseñado para ofrecerte un resumen claro y rápido del rendimiento de tu aplicación, el comportamiento de los usuarios
-          y cualquier aspecto que requiera tu atención inmediata.
+          Bienvenido al centro de control de tu plataforma. Desde aca podrás obtener una vista general del sistema,
+          como editar informacion de los usuarios, sus roles, o saber cuando se conectaron por ultima vez. Este panel fue hecho para tener un resumen claro de la informacion y poder 
+          gestionarla.
         </p>
       </header>
 
@@ -33,16 +37,17 @@ onMounted(async () => {
           <p class="mt-2 text-2xl font-semibold">{{ users.length }}</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <p class="text-sm text-gray-500">Sesiones activas</p>
-          <p class="mt-2 text-2xl font-semibold">42</p>
+          <p class="text-sm text-gray-500">Administradores</p>
+          <p class="mt-2 text-2xl font-semibold">{{ adminUsers.length }}</p>
+
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <p class="text-sm text-gray-500">Registros hoy</p>
-          <p class="mt-2 text-2xl font-semibold">5</p>
+          <p class="text-sm text-gray-500">Editores</p>
+          <p class="mt-2 text-2xl font-semibold">{{ adminUsers.length }}</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <p class="text-sm text-gray-500">Errores recientes</p>
-          <p class="mt-2 text-2xl font-semibold text-red-600">1</p>
+          <p class="text-sm text-gray-500">Emails verificados</p>
+          <p class="mt-2 text-2xl font-semibold">{{ emailVerifiedUsers.length }}</p>
         </div>
       </div>
 

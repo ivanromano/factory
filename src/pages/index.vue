@@ -12,7 +12,7 @@
         Bienvenidos a <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Volt</span>
       </h1>
       <p class="text-lg lg:text-xl text-white/90 mb-6 animate-fadeIn delay-200">
-        Una agencia creativa y de marketing de marca de servicios integrales como ninguna otra.
+        Una agencia de sofware como ningun otra
       </p>
       <button
         class="px-6 py-3 bg-pink-500 hover:bg-pink-600 transition rounded-full text-white font-semibold shadow-xl animate-pulse"
@@ -35,22 +35,21 @@
 
   </main>
   
+  <Services :services="services" class="mb-[10rem]" />
 
   <HeroGsap />
 
-  <!-- <Services :services="services" /> -->
 
   <CardsCards :services-with-stats="servicesWithStats" />
+
+  <Footer/>
+
+
 </template>
 
 <script lang="ts" setup>
 import CardsCards from "../components/cards/cards.vue";
-const supabase = useSupabaseClient()
-
 const user = ref<User | null>(getUser())
-
-
-
 
 
 const servicesWithStats = ref<Service[]>([
@@ -149,40 +148,40 @@ const servicesWithStats = ref<Service[]>([
 
 const services:Object = [
     {
-    title: 'Marketing Digital',
-    description: 'Estrategias personalizadas para aumentar tu presencia online',
+    title: 'Correccion de Errores',
+    description: 'Para que tu sitio funcione sin problemas',
     backTitle: 'Publicidad Digital',
-    backDescription: 'Campañas en Google Ads, Meta Ads y LinkedIn para llegar a tu audiencia ideal'
+    backDescription: 'Para que tu sitio funcione sin problemas'
   },
   {
-    title: 'Desarrollo Web',
-    description: 'Sitios web a medida con tecnología moderna',
+    title: 'Componentes UI',
+    description: 'Para una mejor experiencia de usuario',
     backTitle: 'Aplicaciones Web',
-    backDescription: 'Desarrollo de aplicaciones progresivas (PWA) y soluciones empresariales'
+    backDescription: 'Para una mejor experiencia de usuario',
   },
   {
-    title: 'SEO',
-    description: 'Optimización para motores de búsqueda',
+    title: 'Paginas SSR',
+    description: 'Para mejorar el SEO y la velocidad de carga',
     backTitle: 'SEO Técnico',
-    backDescription: 'Auditorías, estructura de sitio y optimización para crawlers'
+    backDescription: 'Para mejorar el SEO y la velocidad de carga',
   },
   {
-    title: 'Redes Sociales',
-    description: 'Gestión profesional de tus perfiles sociales',
+    title: 'Gestion de Usuarios',
+    description: 'Que implementaremos para tu sitio',
     backTitle: 'Contenido Viral',
-    backDescription: 'Creación de contenido estratégico para engagement y crecimiento'
+    backDescription: 'Que implementaremos para tu sitio',
   },
   {
     title: 'E-commerce',
-    description: 'Tiendas online que convierten visitantes en clientes',
+    description: 'Agregaremos un backend para tu tienda',
     backTitle: 'Conversión',
-    backDescription: 'Optimización de funnel de ventas y experiencia de usuario'
+    backDescription: 'Agregaremos un backend para tu tienda',
   },
   {
-    title: 'Email Marketing',
-    description: 'Campañas efectivas de correo electrónico',
+    title: 'Panel de Administración',
+    description: 'Para gestionar tu sitio sin nuestra ayuda',
     backTitle: 'Automatización',
-    backDescription: 'Flujos automatizados para nutrir leads y fidelizar clientes'
+    backDescription: 'Para gestionar tu sitio sin nuestra ayuda',
   }
 ]
 </script>

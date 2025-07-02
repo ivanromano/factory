@@ -5,7 +5,7 @@ import { createClient } from '@supabase/supabase-js'
 export default defineEventHandler(async (event) => {
   const { id } = event.context.params!
   const body = await readBody<{
-    email?: string
+    // email?: string
     user_metadata?: Record<string, any>
   }>(event)
 
@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
 
   if (error) {
     event.res.statusCode = 500
+    console.log(error.message);
     return { error: error.message }
   }
   

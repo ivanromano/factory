@@ -53,7 +53,17 @@ type User = {
   created_at: string
   updated_at: string
   }
-  
+
+type SimpleUserData = {
+  name: string
+  email: string
+  identifier: string
+  role: string
+  created_at: string
+  updated_at: string
+  id: string
+  }
+
 type SupabaseUserResponse = {
   users: SupabaseUser[]
   aud: string

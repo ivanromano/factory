@@ -16,6 +16,7 @@ const items = ref<NavigationMenuItem[][]>([
     {
       label: 'Home',
       icon: 'material-symbols:home-work-rounded',
+      to: '/admin',
     },
     {
       label: 'users',
