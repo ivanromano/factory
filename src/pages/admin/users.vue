@@ -34,6 +34,8 @@ function handleEdit(aItem: Record<string, any>) {
 }
 
 function deleteUser(item: Record<string, any>) {
+
+
   console.log('Eliminar usuario:', item)
 }
 </script>
