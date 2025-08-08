@@ -1,5 +1,8 @@
 <template>
   <div class="container mx-auto p-6 space-y-8">
+<!-- 
+    
+-->
     <header class="flex flex-col gap-2">
       <h1 class="text-3xl font-bold">Gestion de Usuarios</h1>
       <p class="text-gray-700 max-w-2xl">
@@ -34,7 +37,6 @@ function handleEdit(aItem: Record<string, any>) {
 }
 
 function deleteUser(item: Record<string, any>) {
-
 
   console.log('Eliminar usuario:', item)
 }
