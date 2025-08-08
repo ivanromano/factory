@@ -69,7 +69,7 @@ export default defineNuxtConfig({
   vite: {
     esbuild: {
       drop: ['debugger'],
-      pure: ['console.log', 'console.error', 'console.warn', 'console.debug', 'console.trace'],
+      // pure: ['console.log', 'console.error', 'console.warn', 'console.debug', 'console.trace'],
     },
   },
   vgsap: { extraPlugins: ['ScrollTrigger'], clubPlugins: [], autoprefixer: true }

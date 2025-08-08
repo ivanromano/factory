@@ -7,7 +7,8 @@ export default async function getUsers():Promise<SupabaseUser[]> {
   }
 
   try {
-    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users')
+    const config = useRuntimeConfig()
+    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users',{ baseURL: config.public.API_BASE })
     store.users = users.users
     return store.users
   } catch (err) {
