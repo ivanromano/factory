@@ -7,25 +7,7 @@ export default async function getUsers():Promise<SupabaseUser[]> {
     return store.users
   }
 
-  
-  // console.log("xxx", config.public.SUPABASE_KEY)
-  try {
-
-    console.log(a())
-    // const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users')
-    // store.users = users.users
-
-  store.users = await a()
-  return store.users
-  } catch (err) {
-    // console.error('Error fetching users from server:', err)
-    return []
-  }
-}
-
-export async function a() {
   const config = useRuntimeConfig()
-
   const supabase = createClient(
     config.public.SUPABASE_URL,
     config.public.SUPABASE_SERVICE_ROLE_KEY
@@ -37,12 +19,14 @@ export async function a() {
       throw new Error(error.message);
     }
 
-    return { users: data }
-  } catch (err: any) {
-    throw new Error(err.statusMessage || err.message);
-  }
+    store.users = data.users 
+    return store.users
 
+  } catch (err) {
+    return []
+  }
 }
+
 
 
 export async function getUsersMetaData(): Promise<User[]>  {
