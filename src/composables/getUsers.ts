@@ -16,7 +16,7 @@ export default async function getUsers():Promise<SupabaseUser[]> {
     // store.users = users.users
 
   store.users = await a()
-    return store.users
+  return store.users
   } catch (err) {
     // console.error('Error fetching users from server:', err)
     return []
@@ -27,11 +27,10 @@ export async function a() {
   const config = useRuntimeConfig()
 
   const supabase = createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    config.public.SUPABASE_URL,
+    config.public.SUPABASE_SERVICE_ROLE_KEY
   )
   try {
-    console.log("xxx", config.public.SUPABASE_KEY, config.public.SUPABASE_URL)
     const { data, error } = await supabase.auth.admin.listUsers()
 
     if (error) {
