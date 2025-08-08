@@ -7,8 +7,7 @@ export default async function getUsers():Promise<SupabaseUser[]> {
   }
 
   try {
-    console.log("4")
-    const { users } = await $fetch<{ users: SupabaseUserResponse }>('api/users')
+    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/api/users')
     store.users = users.users
     return store.users
   } catch (err) {
