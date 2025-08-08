@@ -7,21 +7,20 @@ export default async function getUsers():Promise<SupabaseUser[]> {
     return store.users
   }
 
-  const config = useRuntimeConfig()
-  const supabase = createClient(
-    config.public.SUPABASE_URL,
-    config.public.SUPABASE_SERVICE_ROLE_KEY
-  )
   try {
-    const { data, error } = await supabase.auth.admin.listUsers()
+    const config = useRuntimeConfig()
+    const supabase = createClient(
+      config.public.SUPABASE_URL,
+      config.public.SUPABASE_SERVICE_ROLE_KEY
+    )
 
+    const { data, error } = await supabase.auth.admin.listUsers()
     if (error) {
       throw new Error(error.message);
     }
 
     store.users = data.users 
     return store.users
-
   } catch (err) {
     return []
   }

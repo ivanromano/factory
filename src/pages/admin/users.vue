@@ -34,6 +34,8 @@ function handleEdit(aItem: Record<string, any>) {
     created_at: item.created_at,
     updated_at: item.updated_at,
   })
+
+  window.location.reload()
 }
 
 function deleteUser(item: Record<string, any>) {
