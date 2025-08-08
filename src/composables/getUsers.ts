@@ -7,25 +7,31 @@ export default async function getUsers():Promise<SupabaseUser[]> {
     return store.users
   }
 
+  
+  // console.log("xxx", config.public.SUPABASE_KEY)
   try {
 
     console.log(a())
-    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users')
-    store.users = users.users
+    // const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users')
+    // store.users = users.users
+
+  store.users = await a()
     return store.users
   } catch (err) {
-    console.error('Error fetching users from server:', err)
+    // console.error('Error fetching users from server:', err)
     return []
   }
 }
 
 export async function a() {
+  const config = useRuntimeConfig()
+
   const supabase = createClient(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
-
   try {
+    console.log("xxx", config.public.SUPABASE_KEY, config.public.SUPABASE_URL)
     const { data, error } = await supabase.auth.admin.listUsers()
 
     if (error) {
