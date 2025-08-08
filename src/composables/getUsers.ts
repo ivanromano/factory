@@ -1,4 +1,5 @@
 import useStore from "~/store/store"
+import { createClient } from '@supabase/supabase-js'
 
 export default async function getUsers():Promise<SupabaseUser[]> {
   const store = useStore()
@@ -7,8 +8,9 @@ export default async function getUsers():Promise<SupabaseUser[]> {
   }
 
   try {
-    const config = useRuntimeConfig()
-    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users',{ baseURL: config.public.API_BASE })
+
+    console.log(a())
+    const { users } = await $fetch<{ users: SupabaseUserResponse }>('/server/api/users')
     store.users = users.users
     return store.users
   } catch (err) {
@@ -16,6 +18,27 @@ export default async function getUsers():Promise<SupabaseUser[]> {
     return []
   }
 }
+
+export async function a() {
+  const supabase = createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  )
+
+  try {
+    const { data, error } = await supabase.auth.admin.listUsers()
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return { users: data }
+  } catch (err: any) {
+    throw new Error(err.statusMessage || err.message);
+  }
+
+}
+
 
 export async function getUsersMetaData(): Promise<User[]>  {
   const users:SupabaseUser[] = await getUsers()
